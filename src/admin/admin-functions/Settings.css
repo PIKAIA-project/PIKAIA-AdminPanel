@@ -1,0 +1,18 @@
+.admin-settings {
+  /* height: 90%; */
+}
+
+.admin-settings-body {
+  margin: 35px;
+  height: 300px;
+  border: 2px solid #7c20d3c2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.admin-setting {
+  width: 100%;
+  border: 1px solid black;
+}

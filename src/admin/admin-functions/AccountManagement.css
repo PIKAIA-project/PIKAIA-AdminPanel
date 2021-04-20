@@ -1,0 +1,145 @@
+.admin-account-man-body {
+  margin: 35px;
+  /* border: 2px solid #7c20d3c2; */
+}
+
+.delete-user-wrapper {
+}
+
+/* delete user confirm box =========================================  */
+.delete-user-confirm-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgba(255, 0, 0, 0.342);
+  margin: 10px 0;
+  border-radius: 5px;
+}
+.delete-user-confirm-box-input {
+  padding: 10px;
+  width: 55%;
+  color: red;
+  font-weight: bold;
+}
+.delete-user-confirm-box input[type="text"] {
+  outline: none;
+  border-radius: 5px;
+}
+.delete-user-confirm-box input[type="text"]:hover {
+  border: 2px solid red;
+}
+.delete-user-confirm-box-label:hover {
+  color: red;
+}
+
+/* normal user list table ========================================= */
+.normal-user-list-table {
+  width: 100%;
+  text-align: center;
+}
+
+/* admin user delete table ========================================= */
+.user-li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(124, 32, 211, 0.192);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.user-li button {
+  height: 30px;
+  padding: 5px;
+  width: 100px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: rgba(161, 102, 216, 0.761);
+}
+
+.user-li button:hover {
+  background-color: rgba(255, 38, 0, 0.568);
+  color: rgb(255, 255, 255);
+}
+
+@media only screen and (max-width: 800px) {
+  .user-li {
+    flex-direction: column;
+    word-break: break-all;
+    text-align: center;
+  }
+  .user-li button {
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+/* admin user create ========================================= */
+.admin-user-creation-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: rgba(124, 32, 211, 0.192);
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.admin-user-creation-body button {
+  margin: 30px 0 5px 0;
+  width: 75%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: rgba(161, 102, 216, 0.761);
+}
+
+.admin-input-couple {
+  margin: 20px 0 0 0;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 75%;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.admin-input-couple input[type="text"] {
+  width: 65%;
+  height: 30px;
+  padding: 10px;
+  outline: none;
+}
+
+.create-admin-label {
+}
+.user-create-btn {
+}
+
+@media only screen and (max-width: 800px) {
+  .admin-input-couple {
+    width: 100%;
+  }
+  .admin-user-creation-body button {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .admin-input-couple {
+    flex-direction: column;
+  }
+
+  .admin-input-couple input[type="text"] {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+}
