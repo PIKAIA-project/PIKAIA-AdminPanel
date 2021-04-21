@@ -28,7 +28,6 @@ const App = () => {
           error={NotFound}
         >
           <Switch>
-            {/* {logOutUser()} */}
             <GuardedRoute exact path="/login" component={Login} />
             <GuardedRoute exact path="/" meta={{ auth: true }}>
               <Redirect to="/admin" />
@@ -106,7 +105,7 @@ const Login = () => {
   }
 
   function onLoginFail() {
-    alert("fail");
+    alert("Login Failed");
   }
 
   return (
@@ -128,7 +127,7 @@ const Login = () => {
         <label>
           PassWord :
           <input
-            type="text"
+            type="password"
             value={loginData.password}
             name="password"
             onChange={changeLogInData}
