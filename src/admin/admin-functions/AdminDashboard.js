@@ -8,7 +8,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./AdminDashboard.css";
 import * as IoIcons from "react-icons/io";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { AiFillDatabase } from "react-icons/ai";
 import { NavLink, useHistory } from "react-router-dom";
 import { logOutUser, getToken } from "../../utils";
