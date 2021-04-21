@@ -77,20 +77,24 @@ const Login = () => {
     fetch("https://pikaia.azurewebsites.net/login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        if (data.token) {
-          let token = data.token;
-          // remove previously created cookie
-          document.cookie =
-            "token" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        if (data.user.isAdmin === true) {
+          if (data.token) {
+            let token = data.token;
+            // remove previously created cookie
+            document.cookie =
+              "token" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 
-          // saving token in cookie
-          let date = new Date();
-          date.setTime(date.getTime() + 3 * 60 * 60 * 1000); // 3 hours
-          let expires = "; expires=" + date.toUTCString();
-          document.cookie = "token=" + token + expires + "; path=/";
+            // saving token in cookie
+            let date = new Date();
+            date.setTime(date.getTime() + 3 * 60 * 60 * 1000); // 3 hours
+            let expires = "; expires=" + date.toUTCString();
+            document.cookie = "token=" + token + expires + "; path=/";
 
-          // updating isLoggedInState
-          onLoginSuccess();
+            // updating isLoggedInState
+            onLoginSuccess();
+          } else {
+            onLoginFail();
+          }
         } else {
           onLoginFail();
         }

@@ -178,16 +178,16 @@ const AdminDashboard = () => {
                 </td>
               </tr>
             </table>
-            <br />
-            <button
-              className="admin-logout"
-              variant="contained"
-              onClick={logOutAdmin}
-            >
-              LogOut
-            </button>
           </div>
         )}
+        <br />
+        <button
+          className="admin-logout"
+          variant="contained"
+          onClick={logOutAdmin}
+        >
+          LogOut
+        </button>
       </div>
       <div className="admin-dash-body">
         <div className="dash-item dash-item1">
