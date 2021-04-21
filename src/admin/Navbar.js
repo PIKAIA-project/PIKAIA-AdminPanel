@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
 import { SideBarMainData, SideBarSecondaryData } from "./SidebarData";
+
 import "./Navbar.css";
 import { IconContext } from "react-icons";
 

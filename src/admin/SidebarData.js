@@ -41,10 +41,25 @@ export const SideBarSecondaryData = [
     icon: <IoIcons.IoIosSettings />,
     cName: "nav-text",
   },
-  {
-    title: "Logout",
-    path: "/login",
-    icon: <IoIcons.IoIosLogOut />,
-    cName: "nav-text",
-  },
 ];
+
+// export const SideBarSecondaryData = [
+//   {
+//     title: "My Settings",
+//     path: "/admin/settings",
+//     icon: <IoIcons.IoIosSettings />,
+//     cName: "nav-text",
+//   },
+//   {
+//     title: "Logout",
+//     path: "#",
+//     icon: (
+//       <IoIcons.IoIosLogOut
+//         onClick={() => {
+//           console.log("hi");
+//         }}
+//       />
+//     ),
+//     cName: "nav-text",
+//   },
+// ];

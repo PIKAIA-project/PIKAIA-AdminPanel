@@ -8,21 +8,21 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./AdminDashboard.css";
 import * as IoIcons from "react-icons/io";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 import { AiFillDatabase } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
-
-{
-  /* <IoIcons.IoIosSettings />;
-<IoIcons.IoIosMusicalNotes />
-<AiFillDatabase />
-
-<TiWorld.TiWorld /> */
-}
+import { NavLink, useHistory } from "react-router-dom";
+import { logOutUser, getToken } from "../../utils";
 
 const AdminDashboard = () => {
+  let history = useHistory();
   useEffect(() => {
     adminDashboardInfoAPI();
   }, []);
+
+  const logOutAdmin = () => {
+    logOutUser();
+    window.location.href = "/login";
+  };
 
   const [openAlert, setOpenAlert] = useState(false); // alert dialog
   const [adminInfoIsLoading, setAdminInfoIsLoading] = useState(true);
@@ -36,8 +36,8 @@ const AdminDashboard = () => {
   const adminDashboardInfoAPI = async () => {
     let adminDashInfo = [];
     var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
-    let token =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiJiNzQ5YTRjOS0wMWY0LTRjYzgtYjM4Ny0zMzFmNzE3NDQzMWQiLCJleHAiOjE2MTg4NTAxNDd9.9n7RvdnVHPbKyw6yPOOvf7iVQU_ZXh2PB_MYn8ZjFEY";
+    let token = getToken();
+
     try {
       let axiosConfig = {
         headers: {
@@ -91,6 +91,7 @@ const AdminDashboard = () => {
       <div className="admin-info">
         <h1>Welcome to the Admin Dashboard!</h1>
         <br />
+
         <h2>Here You can control the Project PIKAIA Application</h2>
         <br />
         {adminInfoIsLoading ? (
@@ -123,6 +124,14 @@ const AdminDashboard = () => {
                 </td>
               </tr>
             </table>
+            <br />
+            <button
+              className="admin-logout"
+              variant="contained"
+              onClick={logOutAdmin}
+            >
+              LogOut
+            </button>
           </div>
         )}
       </div>

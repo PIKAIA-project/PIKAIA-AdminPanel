@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AccountManagement from "./admin-functions/AccountManagement";
@@ -6,7 +6,7 @@ import AdminDashboard from "./admin-functions/AdminDashboard";
 import ContentManagement from "./admin-functions/ContentManagement";
 import DataManagement from "./admin-functions/DataManagement";
 import Settings from "./admin-functions/Settings";
-import Login from "./Login";
+import { getIsLoggedIn, logOutUser } from "../utils";
 
 const Admin = () => {
   return (
@@ -36,7 +36,6 @@ const Admin = () => {
               exact
               component={AdminDashboard}
             ></Route>
-            <Route path={"/login"} exact component={Login}></Route>
           </Switch>
         </Router>
       </>
