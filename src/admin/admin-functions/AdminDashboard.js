@@ -15,7 +15,8 @@ import { logOutUser, getToken } from "../../utils";
 const AdminDashboard = () => {
   let history = useHistory();
   useEffect(() => {
-    adminDashboardInfoAPI();
+    adminDashboardUserInfoAPI();
+    adminDashboardMusicInfoAPI();
   }, []);
 
   const logOutAdmin = () => {
@@ -32,7 +33,61 @@ const AdminDashboard = () => {
     totalNormalSongs: "N/A",
   });
 
-  const adminDashboardInfoAPI = async () => {
+  const adminDashboardMusicInfoAPI = async () => {
+    let beatsInfo = [];
+    let musicInfo = [];
+    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    let token = getToken();
+
+    try {
+      let axiosConfig = {
+        headers: {
+          "x-access-token": token,
+          "Ocp-Apim-Subscription-Key": key, //the token is a variable which holds the token
+        },
+      };
+
+      const musicData = await axios.get(
+        "https://pikaia-apim.azure-api.net/all-songs",
+        axiosConfig
+      );
+
+      const binauralData = await axios.get(
+        "https://pikaia-apim.azure-api.net/all-beats",
+        axiosConfig
+      );
+
+      if (musicData.data["songs"] || binauralData.data["beats"]) {
+        beatsInfo = binauralData.data["beats"];
+        musicInfo = musicData.data["songs"];
+        onMusicInfoFetchSuccess(beatsInfo, musicInfo);
+      } else {
+        onMusicDataFetchFail();
+      }
+    } catch (err) {
+      onMusicDataFetchFail();
+    }
+  };
+
+  const onMusicInfoFetchSuccess = (beatsInfo, musicInfo) => {
+    if (beatsInfo.length !== 0) {
+      setAdminInfoOverview((prevState) => ({
+        ...prevState,
+        ["totalBinauralSongs"]: beatsInfo.length,
+      }));
+    }
+    if (musicInfo.length !== 0) {
+      setAdminInfoOverview((prevState) => ({
+        ...prevState,
+        ["totalNormalSongs"]: musicInfo.length,
+      }));
+    }
+    setAdminInfoIsLoading(false);
+  };
+
+  const onMusicDataFetchFail = () => {};
+
+  const adminDashboardUserInfoAPI = async () => {
     let adminDashInfo = [];
     var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
     let token = getToken();
@@ -52,16 +107,16 @@ const AdminDashboard = () => {
 
       if (data.data["users"]) {
         adminDashInfo = data.data["users"];
-        onDataFetchSuccess(adminDashInfo);
+        onUserDataFetchSuccess(adminDashInfo);
       } else {
-        onDataFetchFail();
+        onUserDataFetchFail();
       }
     } catch (err) {
-      onDataFetchFail();
+      onUserDataFetchFail();
     }
   };
 
-  const onDataFetchSuccess = (adminDashInfo) => {
+  const onUserDataFetchSuccess = (adminDashInfo) => {
     let totalAdminUsers = 0;
     let totalNormalUsers = 0;
     adminDashInfo.map((user, index, users) => {
@@ -81,8 +136,8 @@ const AdminDashboard = () => {
     setAdminInfoIsLoading(false);
   };
 
-  const onDataFetchFail = () => {
-    setOpenAlert(true);
+  const onUserDataFetchFail = () => {
+    // setOpenAlert(true);
   };
 
   return (
