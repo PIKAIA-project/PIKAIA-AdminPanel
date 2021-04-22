@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Settings.css";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { getToken, getApiURL } from "../../utils";
+import { getToken, getApiURL, logOutUser } from "../../utils";
 
 const Settings = () => {
   // state for UI
@@ -148,6 +148,9 @@ const Settings = () => {
         // process delete
         alert("called delete self api");
         deleteSelfAPI();
+        // TODO: test this
+        logOutUser();
+        window.location.href = "/login";
       }
     } else {
       alert("You must type the correct confirmation text in the confirm box");

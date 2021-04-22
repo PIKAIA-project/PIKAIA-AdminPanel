@@ -101,9 +101,7 @@ const DataManagement = () => {
             "Ocp-Apim-Subscription-Key": key,
           },
         });
-        alert(
-          "Successfully deleted all chats of user with public ID: " + public_id
-        );
+        alert("Successfully deleted all chats of user with public ID: " + public_id);
       } catch (err) {
         console.log(err);
       }
