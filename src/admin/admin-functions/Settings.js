@@ -96,27 +96,47 @@ const Settings = () => {
   }
 
   const deleteSelfAPI = async () => {
+    alert("inside delete self api");
     let response = [];
     const key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
     const token = getToken();
 
     try {
       let axiosConfig = {
-        "x-access-token": token,
-        "Ocp-Apim-Subscription-Key": key,
+        headers: {
+          "x-access-token": token,
+          "Ocp-Apim-Subscription-Key": key, //the token is a variable which holds the token
+        },
       };
+      alert("inside post request");
+      const data = axios.delete(getApiURL() + "/delete-self", {
+        headers: {
+          "x-access-token": token,
+          "Ocp-Apim-Subscription-Key": key,
+        },
+        data: {
+          username: "Admin7",
+          password: "12345",
+        },
+      });
 
-      axios
-        .post(
-          getApiURL() + "/delete-self",
-          {
-            username: "Admin4",
-            password: "12345",
-          },
-          axiosConfig
-        )
-        .then((response) => {});
-    } catch (err) {}
+      // const data = await axios.delete(
+      //   getApiURL() + "/delete-self",
+      //   axiosConfig
+      // );
+
+      // const data = axios.delete(
+      //   getApiURL() + "/delete-self",
+      //   {
+      //     username: "Admin4",
+      //     password: "12345",
+      //   },
+      //   axiosConfig
+      // );
+    } catch (err) {
+      console.log(err);
+      alert("err");
+    }
   };
 
   function onDeleteRequest() {
@@ -126,6 +146,8 @@ const Settings = () => {
         alert("username and password must be filled out");
       } else {
         // process delete
+        alert("called delete self api");
+        deleteSelfAPI();
       }
     } else {
       alert("You must type the correct confirmation text in the confirm box");
