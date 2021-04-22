@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import DropDown from "../dropdown/Dropdown";
 
-import { getToken } from "../../utils";
+import { getToken, getApiURL } from "../../utils";
 
 const AccountManagement = () => {
   const [users, setUsers] = useState({
@@ -29,10 +29,7 @@ const AccountManagement = () => {
         },
       };
 
-      const data = await axios.get(
-        "https://pikaia-apim.azure-api.net/user?=",
-        axiosConfig
-      );
+      const data = await axios.get(getApiURL() + "/user?=", axiosConfig);
 
       if (data.data["users"]) {
         // setUsers((prevState) => ({

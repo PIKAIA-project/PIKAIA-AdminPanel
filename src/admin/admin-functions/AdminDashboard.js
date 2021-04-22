@@ -10,7 +10,7 @@ import * as IoIcons from "react-icons/io";
 import axios from "axios";
 import { AiFillDatabase } from "react-icons/ai";
 import { NavLink, useHistory } from "react-router-dom";
-import { logOutUser, getToken } from "../../utils";
+import { logOutUser, getToken, getApiURL } from "../../utils";
 
 const AdminDashboard = () => {
   let history = useHistory();
@@ -48,12 +48,12 @@ const AdminDashboard = () => {
       };
 
       const musicData = await axios.get(
-        "https://pikaia-apim.azure-api.net/all-songs",
+        getApiURL() + "/all-songs",
         axiosConfig
       );
 
       const binauralData = await axios.get(
-        "https://pikaia-apim.azure-api.net/all-beats",
+        getApiURL() + "/all-beats",
         axiosConfig
       );
 
@@ -100,10 +100,7 @@ const AdminDashboard = () => {
         },
       };
 
-      const data = await axios.get(
-        "https://pikaia-apim.azure-api.net/user?=",
-        axiosConfig
-      );
+      const data = await axios.get(getApiURL() + "/user?=", axiosConfig);
 
       if (data.data["users"]) {
         adminDashInfo = data.data["users"];
@@ -153,30 +150,32 @@ const AdminDashboard = () => {
         ) : (
           <div>
             <table>
-              <tr>
-                <td>Total Admin Users :</td>
-                <td style={{ paddingLeft: "30px" }}>
-                  {adminInfoOverview["totalAdminUsers"]}
-                </td>
-              </tr>
-              <tr>
-                <td>Total Normal Users :</td>
-                <td style={{ paddingLeft: "30px" }}>
-                  {adminInfoOverview["totalNormalUsers"]}
-                </td>
-              </tr>
-              <tr>
-                <td>Total Binaural Songs :</td>
-                <td style={{ paddingLeft: "30px" }}>
-                  {adminInfoOverview["totalBinauralSongs"]}
-                </td>
-              </tr>
-              <tr>
-                <td>Total Normal Songs :</td>
-                <td style={{ paddingLeft: "30px" }}>
-                  {adminInfoOverview["totalNormalSongs"]}
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Total Admin Users :</td>
+                  <td style={{ paddingLeft: "30px" }}>
+                    {adminInfoOverview["totalAdminUsers"]}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Normal Users :</td>
+                  <td style={{ paddingLeft: "30px" }}>
+                    {adminInfoOverview["totalNormalUsers"]}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Binaural Songs :</td>
+                  <td style={{ paddingLeft: "30px" }}>
+                    {adminInfoOverview["totalBinauralSongs"]}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Normal Songs :</td>
+                  <td style={{ paddingLeft: "30px" }}>
+                    {adminInfoOverview["totalNormalSongs"]}
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         )}

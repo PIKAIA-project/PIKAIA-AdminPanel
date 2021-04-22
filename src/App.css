@@ -16,3 +16,11 @@
   justify-content: center;
   font-size: 3rem;
 }
+
+::-moz-selection {
+  background: #7c20d377;
+}
+
+::selection {
+  background: #7c20d357;
+}

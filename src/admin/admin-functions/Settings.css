@@ -1,5 +1,6 @@
 .admin-settings {
-  /* height: 90%; */
+  width: 90%;
+  margin: 20px auto;
 }
 
 .admin-settings-body {
@@ -14,5 +15,34 @@
 
 .admin-setting {
   width: 100%;
-  border: 1px solid black;
+  text-align: center;
+}
+
+.admin-setting-couple {
+  display: flex;
+  width: 90%;
+}
+
+.admin-setting-button {
+  height: 40px;
+  width: 275px;
+  font-weight: bold;
+  background-color: rgba(255, 0, 0, 0.301);
+  border: none;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .account-delete-confirm {
+    display: flex;
+    flex-direction: column;
+  }
+  .delete-account-lbl:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  .delete-account-lbl {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -11,7 +11,8 @@ export const getToken = () => {
 };
 
 export const getApiURL = () => {
-  return "https://pikaia.azurewebsites.net/";
+  return "http://127.0.0.1:5000/";
+  // return "https://pikaia.azurewebsites.net/";
 };
 
 export const getCookie = (c_name) => {

@@ -5,7 +5,7 @@ import { GuardProvider, GuardedRoute } from "react-router-guards";
 import { BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { About, Loading, NotFound } from "./Pages";
 
-import { getIsLoggedIn, logOutUser } from "./utils";
+import { getIsLoggedIn, getApiURL } from "./utils";
 
 const requireLogin = (to, from, next) => {
   if (to.meta.auth === true) {
@@ -74,7 +74,7 @@ const Login = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("https://pikaia.azurewebsites.net/login", requestOptions)
+    fetch(getApiURL() + "/login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         if (data.user.isAdmin === true) {
