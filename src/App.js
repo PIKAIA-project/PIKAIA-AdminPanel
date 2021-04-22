@@ -114,32 +114,37 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="login">
       {/* {getIsLoggedIn() ? <Redirect to="/admin" /> : <Redirect to="/login" />} */}
-      <h2>Welcome to LogIn...</h2>
-      <p>
-        <label>
-          UserName :
+      <div className="login__container">
+        <div className="login__header">
+          <h1>Login</h1>
+          <br />
+        </div>
+        <label className="login__label">
+          <h3>Username :</h3>
           <input
             type="text"
             value={loginData.username}
             name="username"
             onChange={changeLogInData}
+            size="50"
           ></input>
         </label>
-      </p>
-      <p>
-        <label>
-          PassWord :
+        <label className="login__label">
+          <h3>Password :</h3>
           <input
             type="password"
             value={loginData.password}
             name="password"
             onChange={changeLogInData}
+            size="50"
           ></input>
         </label>
-      </p>
-      <button onClick={onLogIn}>LogIn</button>
+        <button className="login__button" onClick={onLogIn}>
+          LogIn
+        </button>
+      </div>
     </div>
   );
 };
