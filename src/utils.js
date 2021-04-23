@@ -11,11 +11,7 @@ export const getToken = () => {
 };
 
 export const getApiURL = () => {
-<<<<<<< Updated upstream
   return "https://pikaia-rest.azurewebsites.net/";
-=======
-  return "https://pikaia-rest-apim.developer.azure-api.net/";
->>>>>>> Stashed changes
   // return "https://pikaia.azurewebsites.net/";
 };
 export const getSubscriptionKey = () => {
