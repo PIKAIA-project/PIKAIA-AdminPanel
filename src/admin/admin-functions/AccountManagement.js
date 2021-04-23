@@ -75,7 +75,7 @@ const AccountManagement = () => {
 
   const DeleteNormalUserComponent = () => {
     const handleNormalUserDelete = (public_id) => {
-      alert(public_id);
+      alert("Deleted user with ID " + public_id);
     };
 
     return (
@@ -102,7 +102,12 @@ const AccountManagement = () => {
                 <div className="user-li" id={index}>
                   <span className="user-name">{user["name"]}</span>
                   <span className="user-id">{user["public_id"]}</span>
-                  <button className="user-del-btn">Delete</button>
+                  <button
+                    className="user-del-btn"
+                    onClick={handleNormalUserDelete}
+                  >
+                    Delete
+                  </button>
                 </div>
               );
             })}
@@ -113,7 +118,7 @@ const AccountManagement = () => {
   };
   const DeleteAdminUserComponent = () => {
     const handleAdminUserDelete = (public_id) => {
-      alert(public_id);
+      alert("Deleted account with ID " + public_id);
     };
 
     return (
@@ -158,7 +163,7 @@ const AccountManagement = () => {
   };
   const CreateAdminUserComponent = () => {
     const handleAdminUserCreate = (username, password) => {
-      alert("new user" + username + " " + password);
+      alert("Created new user " + username);
     };
 
     return (
@@ -209,7 +214,9 @@ const AccountManagement = () => {
               placeholder="ex: 12345"
             />
           </div>
-          <button className="user-create-btn">Create New Admin</button>
+          <button className="user-create-btn" onClick={handleAdminUserCreate}>
+            Create New Admin
+          </button>
         </div>
       </div>
     );

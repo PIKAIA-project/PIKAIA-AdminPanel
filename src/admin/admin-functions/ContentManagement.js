@@ -83,6 +83,7 @@ const ContentManagement = () => {
       } catch (err) {
         console.log(err);
       }
+      alert("Deleted music with ID " + public_id);
     };
 
     return (
@@ -451,7 +452,7 @@ const ContentManagement = () => {
         <h1>Binarual Management</h1>
         <DropDown
           title={"Delete Binaural Beat"}
-          item={    
+          item={
             normalUserListLoading ? <LoadingCircle /> : <DeleteNormalBeats />
           }
           action="Manage"
