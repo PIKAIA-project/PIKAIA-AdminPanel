@@ -4,7 +4,7 @@ import "./ContentManagement.css";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import DropDown from "../dropdown/Dropdown";
-import { getToken, getApiURL } from "../../utils";
+import { getToken, getApiURL, getSubscriptionKey } from "../../utils";
 
 const ContentManagement = () => {
   const [music, setMusic] = useState({
@@ -13,16 +13,11 @@ const ContentManagement = () => {
   });
   const [normalUserListLoading, setNormalUserListLoading] = useState(true);
   const [adminUserListLoading, setAdminUserListLoading] = useState(true);
-  const [textValue, setTextValue] = useState({
-    song_name: "",
-    song_link: "",
-    song_author: "",
-    song_cover: "",
-  });
+
   const getAllSongAPI = async () => {
     let allSongs = [];
     let allBeats = [];
-    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    var key = getSubscriptionKey();
     let token = getToken();
     try {
       let axiosConfig = {
@@ -41,7 +36,6 @@ const ContentManagement = () => {
       if (songData && beatsData) {
         allSongs = songData.data["songs"];
         allBeats = beatsData.data["beats"];
-        console.log(allSongs);
         setMusic((prevState) => ({
           ...prevState,
           ["normalSongs"]: allSongs,
@@ -66,13 +60,29 @@ const ContentManagement = () => {
     getAllSongAPI();
   }, []);
 
-  function changeLogInData(e) {
-    setTextValue({ ...textValue, [e.target.name]: e.target.value });
-  }
-
   const DeleteNormalMusic = () => {
     const handleNormalMusicDelete = (public_id) => {
-      alert(public_id);
+      let response = [];
+      const key = getSubscriptionKey();
+      const token = getToken();
+
+      try {
+        // let axiosConfig = {
+        //   "x-access-token": token,
+        //   "Ocp-Apim-Subscription-Key": key,
+        // };
+
+        const url = getApiURL() + "song/" + public_id;
+        axios.delete(url, {
+          headers: {
+            "x-access-token": token,
+            "Ocp-Apim-Subscription-Key": key,
+          },
+        });
+        alert("Successfully deleted song with ID: " + public_id);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     return (
@@ -115,8 +125,39 @@ const ContentManagement = () => {
   };
 
   const CreateAdminSongComponent = () => {
-    const handleAdminSongCreate = (song_name) => {
-      alert("new song: " + song_name);
+    const [textValue, setTextValue] = useState({
+      song_name: "",
+      song_link: "",
+      song_author: "",
+      song_cover: "",
+    });
+
+    function changeLogInData(e) {
+      setTextValue({ ...textValue, [e.target.name]: e.target.value });
+    }
+
+    const handleAdminSongCreate = async () => {
+      const url = getApiURL() + "add-music";
+
+      try {
+        await axios.post(url, {
+          headers: {
+            "x-access-token": getToken(),
+            "Ocp-Apim-Subscription-Key": getSubscriptionKey(),
+          },
+          data: {
+            song_name: textValue.song_name,
+            song_link: textValue.song_link,
+            song_author: textValue.song_author,
+            song_cover: textValue.song_cover,
+          },
+        });
+
+        alert("New song added: " + textValue.song_name);
+      } catch (err) {
+        console.log(err.response);
+        alert(err);
+      }
     };
 
     return (
@@ -157,7 +198,7 @@ const ContentManagement = () => {
             <input
               className="create-admin-input"
               type="text"
-              name="confirm-admin-creation-password"
+              name="song_author"
               id="song_author"
               placeholder="ex: Swørn"
               value={textValue.song_author}
@@ -171,29 +212,68 @@ const ContentManagement = () => {
             <input
               className="create-admin-input"
               type="text"
-              name="confirm-admin-creation-password"
+              name="song_cover"
               id="song_cover"
               placeholder="ex: https://chillhop.com/wp-content/uploads/24.jpg"
               value={textValue.song_cover}
               onChange={changeLogInData}
             />
           </div>
-          <button className="user-create-btn">Create New Song</button>
+          <button onClick={handleAdminSongCreate} className="user-create-btn">
+            Create New Song
+          </button>
         </div>
       </div>
     );
   };
 
   const CreateAdminBeatsComponent = () => {
-    const handleAdminSongCreate = (song_name) => {
-      alert("new song: " + song_name);
-    };
+    const [textValue, setTextValue] = useState({
+      binaural_name: "",
+      binaural_link: "",
+      binaural_author: "",
+      binaural_type: "",
+      binaural_cover: "",
+    });
 
+    function changeLogInData(e) {
+      setTextValue({ ...textValue, [e.target.name]: e.target.value });
+    }
+
+    const handleAdminBeatCreate = async () => {
+      const url = getApiURL() + "add-music";
+      const key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+      const token = getToken();
+
+      try {
+        let axiosConfig = {
+          headers: {
+            "x-access-token": token,
+            "Ocp-Apim-Subscription-Key": key, //the token is a variable which holds the token
+          },
+        };
+        await axios.post(url, {
+          axiosConfig,
+          data: {
+            binaural_name: textValue.binaural_name,
+            binaural_link: textValue.binaural_link,
+            binaural_author: textValue.binaural_author,
+            binaural_type: textValue.binaural_type,
+            binaural_cover: textValue.binaural_cover,
+          },
+        });
+
+        alert("New beat added: " + textValue.binaural_name);
+      } catch (err) {
+        console.log(err.response);
+        alert(err);
+      }
+    };
     return (
       <div className="delete-user-wrapper">
         <div className="admin-user-creation-body">
           <div className="admin-input-couple">
-            <label className="create-admin-label" htmlFor="song_name">
+            <label className="create-admin-label" htmlFor="binaural_name">
               New binaural beat name:
             </label>
             <input
@@ -227,7 +307,7 @@ const ContentManagement = () => {
             <input
               className="create-admin-input"
               type="text"
-              name="confirm-admin-creation-password"
+              name="binaural_author"
               id="binaural_author"
               placeholder="ex: Swørn"
               value={textValue.binaural_author}
@@ -241,7 +321,7 @@ const ContentManagement = () => {
             <input
               className="create-admin-input"
               type="text"
-              name="confirm-admin-creation-password"
+              name="binaural_type"
               id="binaural_type"
               placeholder="ex: calm "
               value={textValue.binaural_type}
@@ -255,23 +335,45 @@ const ContentManagement = () => {
             <input
               className="create-admin-input"
               type="text"
-              name="confirm-admin-creation-password"
+              name="binaural_cover"
               id="binaural_cover"
               placeholder="ex: https://chillhop.com/wp-content/uploads/24.jpg"
               value={textValue.binaural_cover}
               onChange={changeLogInData}
             />
           </div>
-          <button className="user-create-btn">Create New Song</button>
+          <button onClick={handleAdminBeatCreate} className="user-create-btn">
+            Create New Song
+          </button>
         </div>
       </div>
     );
   };
 
   const DeleteNormalBeats = () => {
-    const handleNormalMusicDelete = (public_id) => {
-      alert(public_id);
-    };
+    async function handleNormalMusicDelete(public_id) {
+      let response = [];
+      const key = getSubscriptionKey();
+      const token = getToken();
+
+      try {
+        let axiosConfig = {
+          "x-access-token": token,
+          "Ocp-Apim-Subscription-Key": key,
+        };
+
+        const url = getApiURL() + "beat/" + public_id;
+        axios.delete(url, {
+          headers: {
+            "x-access-token": token,
+            "Ocp-Apim-Subscription-Key": key,
+          },
+        });
+        alert("Successfully deleted binaural beat with ID: " + public_id);
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
     return (
       <div className="delete-user-wrapper">
@@ -349,7 +451,7 @@ const ContentManagement = () => {
         <h1>Binarual Management</h1>
         <DropDown
           title={"Delete Binaural Beat"}
-          item={
+          item={    
             normalUserListLoading ? <LoadingCircle /> : <DeleteNormalBeats />
           }
           action="Manage"

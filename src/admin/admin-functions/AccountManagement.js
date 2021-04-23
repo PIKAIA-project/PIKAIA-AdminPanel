@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import DropDown from "../dropdown/Dropdown";
 
-import { getToken, getApiURL } from "../../utils";
+import { getToken, getApiURL, getSubscriptionKey } from "../../utils";
 
 const AccountManagement = () => {
   const [users, setUsers] = useState({
@@ -19,7 +19,7 @@ const AccountManagement = () => {
 
   const getAllUsersAPI = async () => {
     let allUsers = [];
-    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    var key = getSubscriptionKey();
     let token = getToken();
     try {
       let axiosConfig = {

@@ -10,7 +10,12 @@ import * as IoIcons from "react-icons/io";
 import axios from "axios";
 import { AiFillDatabase } from "react-icons/ai";
 import { NavLink, useHistory } from "react-router-dom";
-import { logOutUser, getToken, getApiURL } from "../../utils";
+import {
+  logOutUser,
+  getToken,
+  getApiURL,
+  getSubscriptionKey,
+} from "../../utils";
 
 const AdminDashboard = () => {
   let history = useHistory();
@@ -36,7 +41,7 @@ const AdminDashboard = () => {
   const adminDashboardMusicInfoAPI = async () => {
     let beatsInfo = [];
     let musicInfo = [];
-    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    var key = getSubscriptionKey();
     let token = getToken();
 
     try {
@@ -89,7 +94,7 @@ const AdminDashboard = () => {
 
   const adminDashboardUserInfoAPI = async () => {
     let adminDashInfo = [];
-    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    var key = getSubscriptionKey();
     let token = getToken();
 
     try {

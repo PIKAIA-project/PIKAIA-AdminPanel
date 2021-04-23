@@ -5,7 +5,7 @@ import { GuardProvider, GuardedRoute } from "react-router-guards";
 import { BrowserRouter, Switch, Redirect } from "react-router-dom";
 import { About, Loading, NotFound } from "./Pages";
 
-import { getIsLoggedIn, getApiURL } from "./utils";
+import { getIsLoggedIn, getApiURL, getSubscriptionKey } from "./utils";
 
 const requireLogin = (to, from, next) => {
   if (to.meta.auth === true) {
@@ -64,17 +64,14 @@ const Login = () => {
     authorization =
       "Basic " + btoa(loginData["username"] + ":" + loginData["password"]);
     var myHeaders = new Headers();
-    myHeaders.append(
-      "Ocp-Apim-Subscription-Key",
-      "1a55d8e0ffa94fc7988a1fc24deb69b0"
-    );
+    myHeaders.append("Ocp-Apim-Subscription-Key", getSubscriptionKey());
     myHeaders.append("Authorization", authorization);
     var requestOptions = {
       method: "GET",
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch(getApiURL() + "/login", requestOptions)
+    fetch(getApiURL() + "login", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         if (data.user.isAdmin === true) {

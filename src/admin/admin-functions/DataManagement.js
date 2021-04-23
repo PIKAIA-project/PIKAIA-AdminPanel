@@ -5,7 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import DropDown from "../dropdown/Dropdown";
 
-import { getToken, getApiURL } from "../../utils";
+import { getToken, getApiURL, getSubscriptionKey } from "../../utils";
 import "./DataManagement.css";
 
 const DataManagement = () => {
@@ -20,7 +20,7 @@ const DataManagement = () => {
 
   const getAllUsersAPI = async () => {
     let allUsers = [];
-    var key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+    var key = getSubscriptionKey();
     let token = getToken();
     try {
       let axiosConfig = {
@@ -79,7 +79,7 @@ const DataManagement = () => {
   const DeleteNormalUserComponent = () => {
     async function deleteUserDataAPI(public_id) {
       let response = [];
-      const key = "1a55d8e0ffa94fc7988a1fc24deb69b0";
+      const key = getSubscriptionKey();
       const token = getToken();
 
       try {
@@ -101,7 +101,9 @@ const DataManagement = () => {
             "Ocp-Apim-Subscription-Key": key,
           },
         });
-        alert("Successfully deleted all chats of user with public ID: " + public_id);
+        alert(
+          "Successfully deleted all chats of user with public ID: " + public_id
+        );
       } catch (err) {
         console.log(err);
       }
@@ -132,19 +134,21 @@ const DataManagement = () => {
   };
 
   return (
-    <div className="admin-data-man">
-      <h1>Normal User Management</h1>
-      <DropDown
-        title={"Delete Normal User's Data"}
-        item={
-          normalUserListLoading ? (
-            <LoadingCircle />
-          ) : (
-            <DeleteNormalUserComponent />
-          )
-        }
-        action="Manage"
-      />
+    <div className="admin-cont-man">
+      <div className="admin-cont-man-body">
+        <h1>Normal User Data Management</h1>
+        <DropDown
+          title={"Delete Normal User's Data"}
+          item={
+            normalUserListLoading ? (
+              <LoadingCircle />
+            ) : (
+              <DeleteNormalUserComponent />
+            )
+          }
+          action="Manage"
+        />
+      </div>
     </div>
   );
 };
